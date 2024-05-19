@@ -49,4 +49,41 @@ const Search = ({ search, onSearch }) => (
     <span>{item.points}</span>
     </li>
     );
+  
+
+    const App = () => {
+
+      const handleSearch = (event) => {
+      setSearchTerm(event.target.value);
+      
+      localStorage.setItem('search', event.target.value);
+      
+      };
+      ...
+      );
+      const App = () => {
+        ...
+        
+        const [searchTerm, setSearchTerm] = React.useState(
+        localStorage.getItem('search') || 'React'
+        );
+        
+        ...
+        
+        );
+
+const [searchTerm, setSearchTerm] = React.useState(
+localStorage.getItem('search') || 'React'
+
+);
+
+React.useEffect(() => {
+localStorage.setItem('search', searchTerm);
+}, [searchTerm]);
+
+const handleSearch = (event) => {
+setSearchTerm(event.target.value);
+};
+...
+);
 export default App;
