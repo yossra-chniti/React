@@ -101,5 +101,31 @@ return (
   );
   };
 
+  <button
+type="button"
+disabled={!searchTerm}
+onClick={handleSearchSubmit}
+>
+Submit
+</button>
+
+const [url, setUrl] = React.useState(`${API_ENDPOINT}${searchTerm}`);
+const handleSearchSubmit = () => {
+setUrl(`${API_ENDPOINT}${searchTerm}`);
+};
+
+React.useEffect(() => {
+  setIsLoading(true);
+  fetch(url)
+  .then((response) => response.json())
+  .then((result) => {
+  setStories(result.hits);
+  setIsLoading(false);
+  })
+  .catch(() => {
+  setIsError(true);
+  setIsLoading(false);
+  });
+  }, [url]);
   
 export default App;
