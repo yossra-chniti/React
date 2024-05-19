@@ -44,4 +44,62 @@ React.useEffect(() => {
 
    <List list={stories} onRemoveItem={handleRemoveStory} />
 
+   const [isLoading, setIsLoading] = React.useState(false);
+……
+React.useEffect(() => {
+if (!searchTerm) return;
+setIsLoading(true);
+fetch(`${API_ENDPOINT}${searchTerm}`)
+.then((response) => response.json())
+.then((result) => {
+setIsLoading(false);
+setStories(result.hits);
+})
+.catch(() => {
+});
+}, [searchTerm]);
+return (
+  <div>
+  …
+  <hr />
+  {isLoading ? (
+  <p>Loading ...</p>
+  ) : (
+  <List list={stories} onRemoveItem={handleRemoveStory} />
+  )}
+  </div>
+  );
+  };
+  const [isError, setIsError] = React.useState(false);
+…
+React.useEffect(() => {
+if (!searchTerm) return;
+setIsLoading(true);
+fetch(`${API_ENDPOINT}${searchTerm}`)
+.then((response) => response.json())
+.then((result) => {
+setIsLoading(false);
+setStories(result.hits);
+})
+.catch(() => {
+setIsLoading(false);
+setIsError(true);
+});
+}, [searchTerm]);
+
+return (
+  <div>
+  …
+  <hr />
+  {isError && <p>Something went wrong ...</p>}
+  {isLoading ? (
+  <p>Loading ...</p>
+  ) : (
+  <List list={stories} onRemoveItem={handleRemoveStory} />
+  )}
+  </div>
+  );
+  };
+
+  
 export default App;
